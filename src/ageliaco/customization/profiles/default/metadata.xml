@@ -3,5 +3,6 @@
   <version>1000</version>
   <dependencies>
     <dependency>profile-collective.recaptcha:default</dependency>
+    <dependency>profile-plone.formwidget.recaptcha:default</dependency>
   </dependencies>
 </metadata>

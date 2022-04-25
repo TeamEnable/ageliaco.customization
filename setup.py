@@ -52,10 +52,11 @@ setup(
         # -*- Extra requirements: -*-
         "z3c.jbot",
         "plone.api>=1.8.4",
-        "plone.restapi < 8.0.0",
+        "plone.restapi<8.0.0",
         "plone.app.dexterity",
         "plone.formwidget.recaptcha",
-        "collective.recaptcha",
+        "collective.recaptcha==2.1.0",
+        "plone.formwidget.recaptcha==2.3.0",
     ],
     extras_require={
         "test": [
