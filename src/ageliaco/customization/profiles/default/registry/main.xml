@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<registry
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="ageliaco.customization">
+
+    <!-- -*- the editor datatables bundle -*- -->
+    <!-- <records prefix="plone.bundles/editor-datatable" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>editor-datatables-main</element>
+        </value>
+        <value key="depends">full-datatables</value>
+        <value key="enabled">True</value>
+        <value key="compile">True</value>
+        <value key="csscompilation">++plone++sesamath.customization/Editor-2.0.7/css/editor.dataTables.min.css</value>
+        <value key="jscompilation">++plone++sesamath.customization/Editor-2.0.7/js/dataTables.editor.min.js</value>
+        <value key="last_compilation"></value>
+    </records> -->
+
+    <!-- <records prefix="plone.bundles/datetime-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>datetime-datatables-main</element>
+        </value>
+        <value key="depends">full-datatables</value>
+        <value key="enabled">True</value>
+        <value key="compile">True</value>
+        <value key="csscompilation">++plone++sesamath.customization/DateTime-1.1.2/css/dataTables.dateTime.min.css</value>
+        <value key="jscompilation">++plone++sesamath.customization/DateTime-1.1.2/js/dataTables.dateTime.min.js</value>
+        <value key="last_compilation"></value>
+    </records>
+
+    <records prefix="plone.bundles/select-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>select-datatables-main</element>
+        </value>
+        <value key="depends">full-datatables</value>
+        <value key="enabled">True</value>
+        <value key="compile">True</value>
+        <value key="csscompilation">++plone++sesamath.customization/Select-1.3.4/css/select.dataTables.min.css</value>
+        <value key="jscompilation">++plone++sesamath.customization/Select-1.3.4/js/dataTables.select.min.js</value>
+        <value key="last_compilation"></value>
+    </records>
+
+    <records prefix="plone.bundles/buttons-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>buttons-datatables-main</element>
+        </value>
+        <value key="depends">full-datatables</value>
+        <value key="enabled">True</value>
+        <value key="compile">True</value>
+        <value key="csscompilation">++plone++sesamath.customization/Buttons-2.2.2/css/buttons.dataTables.min.css</value>
+        <value key="jscompilation">++plone++sesamath.customization/Buttons-2.2.2/js/dataTables.buttons.min.js</value>
+        <value key="last_compilation"></value>
+    </records> -->
+
+    <!-- <records prefix="plone.bundles/full-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>full-datatables-main</element>
+        </value>
+        <value key="enabled">True</value>
+        <value key="compile">True</value>
+        <value key="csscompilation">++plone++sesamath.customization/DataTables/css/jquery.dataTables.min.css</value>
+        <value key="jscompilation">++plone++sesamath.customization/DataTables/js/jquery.dataTables.min.js</value>
+        <value key="last_compilation"></value>
+    </records>
+     -->
+    <!-- <records prefix="plone.bundles/jquery3" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>jquery3-main</element>
+        </value>
+        <value key="enabled">True</value>
+        <value key="compile">True</value>
+        <value key="jscompilation">++plone++sesamath.customization/jQuery-3.6.0/jquery-3.6.0.min.js</value>
+        <value key="last_compilation"></value>
+    </records> -->
+    
+</registry>

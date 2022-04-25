@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<registry
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="ageliaco.customization">
+
+    <!-- -*- the editor datatables bundle -*- -->
+    <!-- <records remove="True" prefix="plone.bundles/jquery3" interface='Products.CMFPlone.interfaces.IBundleRegistry'/> -->
+    <!-- <records remove="True" prefix="plone.bundles/full-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'/> -->
+    <!-- <records remove="True" prefix="plone.bundles/buttons-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'/>
+    <records remove="True" prefix="plone.bundles/select-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'/>
+    <records remove="True" prefix="plone.bundles/datetime-datatables" interface='Products.CMFPlone.interfaces.IBundleRegistry'/> -->
+    <!-- <records remove="True" prefix="plone.bundles/editor-datatable" interface='Products.CMFPlone.interfaces.IBundleRegistry'/> -->
+</registry>

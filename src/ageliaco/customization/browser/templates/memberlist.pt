@@ -1,0 +1,139 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="sesamath.customization">
+
+<body>
+<metal:head fill-slot="javascript_head_slot">
+    <script type="text/javascript">
+        $(document).ready( function(){
+            $('#members').DataTable();
+        });
+    </script>
+    <script type="text/javascript">
+        var editor; // use a global for the submit and return data rendering in the examples
+
+        $(document).ready(function() {
+            editor = new $.fn.dataTable.Editor( {
+                table: "#example",
+                fields: [ {
+                        label: "First name:",
+                        name: "first_name"
+                    }, {
+                        label: "Last name:",
+                        name: "last_name"
+                    }, {
+                        label: "Position:",
+                        name: "position"
+                    }, {
+                        label: "Office:",
+                        name: "office"
+                    }, {
+                        label: "Extension:",
+                        name: "extn"
+                    }, {
+                        label: "Start date:",
+                        name: "start_date",
+                        type: "datetime"
+                    }, {
+                        label: "Salary:",
+                        name: "salary"
+                    }
+                ]
+            } );
+
+            $('#example').DataTable( {
+                dom: "Bfrtip",
+                ajax: "../php/staff.php",
+                columns: [
+                    { data: null, render: function ( data, type, row ) {
+                        // Combine the first and last names into a single table field
+                        return data.first_name+' '+data.last_name;
+                    } },
+                    { data: "position" },
+                    { data: "office" },
+                    { data: "extn" },
+                    { data: "start_date" },
+                    { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+                ],
+                select: true,
+                buttons: [
+                    { extend: "create", editor: editor },
+                    { extend: "edit",   editor: editor },
+                    { extend: "remove", editor: editor }
+                ]
+            } );
+        } );
+    </script>
+</metal:head>
+<metal:body fill-slot="body">
+
+    <article id="content">
+        <h1 class="documentFirstHeading"
+            tal:content="string:Utilisateurs" />
+        <div id="content-core">
+            <p class="discreet">
+                Liste des utilisateurs du site avec les détails associés.
+            </p>
+
+            <form method="post" tal:attributes="action string:$portal_url/memberform">
+            <ul class="pagination">
+                <li class="paginate_button">
+                    <button id="btn-export"
+                            tal:attributes="onclick string:window.location.href='$portal_url/memberexport'"
+                            class="btn btn-primary" title="Exporter les données des membres" aria-label="Exporter"
+                            data-original-title="Exporter les données des membres"><span class="glyphicon glyphicon-export"></span> Exporter les données des membres</button>
+                </li>
+
+                <li class="paginate_button">
+                    <button id="btn-import"
+                            tal:attributes="onclick string:window.location.href='$portal_url/memberimport'"
+                            class="btn btn-primary" title="Importer des comptes de membres" aria-label="Importer"
+                            data-original-title="Importer des comptes de membres"><span class="glyphicon glyphicon-export"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</button>
+                </li>
+
+                <li class="paginate_button">
+                    <button id="btn-submit" type="submit"
+                            class="btn btn-primary" title="Sauvegarder les changements" aria-label="Enregistrer"
+                            data-original-title="Sauvegarder les changements"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
+                </li>
+            </ul>
+
+            <hr style="border:none;"/>
+
+            <!-- Insérer ici le code pour afficher le tableau contenant la liste en question -->
+            <table id="members"  class="listing display" tal:define="columns python:view.table_columns()">
+                <thead>
+                <tr>
+                    <th tal:repeat="col columns"
+                        tal:content="python:col.upper()">Column name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr tal:repeat="member python:view.members()">
+                    <td tal:repeat="pty_name columns">
+                        <tal:block condition="python:pty_name == 'fullname'">
+                        <a tal:attributes="href string:${context/absolute_url}/@@user-information?userid=${member}">
+                            ${python:member.getProperty(pty_name)}
+                        </a>
+                        </tal:block>
+
+                        <tal:block condition="python:pty_name != 'fullname'">
+                        <span tal:condition="python: type(member.getProperty(pty_name)) is not bool">
+                            ${python:member.getProperty(pty_name)}
+                        </span>
+                        <input tal:define="box_name string:${member}_${pty_name}"  tal:condition="python:type(member.getProperty(pty_name)) is bool" tal:attributes="checked python:'checked' if member.getProperty(pty_name) is True else ''; name box_name;" type="checkbox" class="form-control" />
+                        </tal:block>
+                    </td>
+                </tr>
+                <tbody>
+            </table>
+            </form>
+        </div>
+    </article>
+
+</metal:body>
+</body>
+</html>

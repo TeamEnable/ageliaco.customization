@@ -1,0 +1,56 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ageliaco.customization">
+
+    <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+    <include package="z3c.jbot" file="meta.zcml" />
+    <browser:jbot
+        directory="overrides"
+        layer="ageliaco.customization.interfaces.IAgeliacoCustomizationLayer"
+        />
+
+    <!-- Publish static files -->
+    <plone:static
+        name="ageliaco.customization"
+        type="plone"
+        directory="static"
+        />
+
+    <browser:page
+        name="memberlist"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".members.MemberListView"
+        template="templates/memberlist.pt"
+        permission="cmf.ManagePortal"
+        />
+
+    <browser:page
+        name="memberexport"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".members.MemberExportView"
+        permission="cmf.ManagePortal"
+        />
+
+    <browser:page
+        name="memberimport"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".members.MemberImportView"
+        permission="cmf.ManagePortal"
+        />
+
+    <browser:page
+        name="memberdelete"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".members.MemberDeleteView"
+        permission="cmf.ManagePortal"
+        />
+
+    <browser:page
+        name="memberform"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".members.MemberFormView"
+        permission="cmf.ManagePortal"
+        />
+</configure>
