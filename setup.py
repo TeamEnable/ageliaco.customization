@@ -55,7 +55,6 @@ setup(
         "plone.restapi<8.0.0",
         "plone.app.dexterity",
         "plone.formwidget.recaptcha",
-        "collective.recaptcha==2.1.0",
         "plone.formwidget.recaptcha==2.3.0",
     ],
     extras_require={
