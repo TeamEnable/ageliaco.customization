@@ -19,13 +19,20 @@ logger = logging.getLogger(__name__)
 
 
 class IReCaptchaForm(interface.Interface):
-    name = schema.TextLine(title=u"Nom complet", description=u"Veuiller saisir votre nom complet.", required=True)
-    email = email.Email(title=u"Expéditeur", description=u"Veuiller saisir votre adresse email.",
-                        required=True,
-                        constraint=checkEmailAddress)
-    subject = schema.TextLine(title=u"Sujet", description=u"", required=True)
-    message = schema.Text(title=u"Message", description=u"", required=False)
-    captcha = schema.TextLine(title=u"ReCaptcha", description=u"", required=False)
+    name = schema.TextLine(
+        title="Nom complet",
+        description="Veuiller saisir votre nom complet.",
+        required=True,
+    )
+    email = email.Email(
+        title="Expéditeur",
+        description="Veuiller saisir votre adresse email.",
+        required=True,
+        constraint=checkEmailAddress,
+    )
+    subject = schema.TextLine(title="Sujet", description="", required=True)
+    message = schema.Text(title="Message", description="", required=False)
+    captcha = schema.TextLine(title="ReCaptcha", description="", required=False)
 
 
 class ReCaptcha(object):
@@ -40,12 +47,12 @@ class ReCaptcha(object):
 
 
 class BaseForm(form.Form):
-    """ example captcha form """
+    """example captcha form"""
 
     fields = field.Fields(IReCaptchaForm)
     fields["captcha"].widgetFactory = ReCaptchaFieldWidget
 
-    @button.buttonAndHandler(u"Save")
+    @button.buttonAndHandler("Save")
     def handleApply(self, action):
         data, errors = self.extractData()
         captcha = getMultiAdapter(
@@ -57,17 +64,25 @@ class BaseForm(form.Form):
             logger.info("ReCaptcha validation passed.")
 
             mailhost = self.context.MailHost
-            dest_email = self.context.getProperty('email_from_address')  # "kamon.ayeva@gmail.com"
-            send_email = self.context.getProperty('email_from_address')  # "support@ageliaco.org"
+            dest_email = self.context.getProperty(
+                "email_from_address"
+            )  # "kamon.ayeva@gmail.com"
+            send_email = self.context.getProperty(
+                "email_from_address"
+            )  # "support@ageliaco.org"
 
             try:
-                mailhost.send(f"Message de {data['name']} ({data['email']}) : {data['message']}",
-                              dest_email,
-                              send_email,
-                              data["subject"])
+                mailhost.send(
+                    f"Message de {data['name']} ({data['email']}) : {data['message']}",
+                    dest_email,
+                    send_email,
+                    data["subject"],
+                )
                 logger.info("Message emailed.")
             except Exception:
-                logger.error(f"SMTP exception while trying to send an email to {dest_email}")
+                logger.error(
+                    f"SMTP exception while trying to send an email to {dest_email}"
+                )
         else:
             logger.info("The code you entered was wrong, please enter the new one.")
             return

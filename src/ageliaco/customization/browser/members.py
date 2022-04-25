@@ -7,6 +7,7 @@ from Products.PlonePAS.permissions import ManageGroups
 from plone import api
 
 import csv
+
 # from io import StringIO
 import logging
 import random
@@ -16,9 +17,13 @@ logger = logging.getLogger(__name__)
 
 MEMBERFIELDS = [
     # "user_id",
-    "email", "fullname", "description",
-    "location", "cotisation_2021", "cotisation_2022",
-    #"test", "fonction",
+    "email",
+    "fullname",
+    "description",
+    "location",
+    "cotisation_2021",
+    "cotisation_2022",
+    # "test", "fonction",
 ]
 
 
@@ -26,7 +31,19 @@ class MemberListView(BrowserView):
     """Members listing"""
 
     def table_columns(self):
-        exclude_memberIds = ["portal_skin","listed","login_time","last_login_time","error_log_update","language","ext_editor","wysiwyg_editor","visible_ids","home_page","location"]
+        exclude_memberIds = [
+            "portal_skin",
+            "listed",
+            "login_time",
+            "last_login_time",
+            "error_log_update",
+            "language",
+            "ext_editor",
+            "wysiwyg_editor",
+            "visible_ids",
+            "home_page",
+            "location",
+        ]
         results = []
 
         memberIds = self.context.portal_memberdata.propertyIds()
@@ -51,8 +68,8 @@ class MemberExportView(BrowserView):
         request = self.context.REQUEST
 
         # Cette partie du code génère le fichier MEMBERS.CSV quise trouve dans PLONE/ZINSTANCE
-        with open('members.csv', 'w', newline='') as csvfile:
-            spamwriter = csv.writer(csvfile, delimiter=',')
+        with open("members.csv", "w", newline="") as csvfile:
+            spamwriter = csv.writer(csvfile, delimiter=",")
             spamwriter.writerow(MEMBERFIELDS)
 
             members = api.user.get_users()
@@ -122,10 +139,10 @@ class MemberImportView(BrowserView):
                     #     api.group.add_user(groupname=group, username=username)
 
                     # Send confirmation with details to the user
-                    if userdata.get('email', ""):
+                    if userdata.get("email", ""):
                         mailhost = self.context.MailHost
-                        dest_email = userdata['email']
-                        send_email = self.context.getProperty('email_from_address')
+                        dest_email = userdata["email"]
+                        send_email = self.context.getProperty("email_from_address")
                         msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
                         subject = "Votre compte a été créé"
 
@@ -133,7 +150,9 @@ class MemberImportView(BrowserView):
                             mailhost.send(msg, dest_email, send_email, subject)
                             logger.info("Message emailed.")
                         except Exception:
-                            logger.error(f"SMTP exception while trying to send an email to {dest_email}")
+                            logger.error(
+                                f"SMTP exception while trying to send an email to {dest_email}"
+                            )
 
                 except Exception as e:
                     logger.error(str(e))
@@ -162,9 +181,9 @@ class MemberImportView(BrowserView):
 
     def _generateRandomPassword(self, chars):
         st = ""
-        possible_chars = 'qwertyuiopasdfghjklzxcvbnm_-1234567890'
+        possible_chars = "qwertyuiopasdfghjklzxcvbnm_-1234567890"
         for x in range(chars):
-            st+=random.choice(possible_chars)
+            st += random.choice(possible_chars)
         return st
 
 
@@ -178,7 +197,7 @@ class MemberDeleteView(BrowserView):
         mtool = self.context.portal_membership
         members = api.user.get_users()
 
-        DO_NOT_DELETE = ("kamona", )
+        DO_NOT_DELETE = ("kamona",)
 
         for m in members:
             m_id = m.member_id
@@ -195,7 +214,19 @@ class MemberFormView(BrowserView):
     """Members updating form"""
 
     def __call__(self):
-        exclude_memberIds = ["portal_skin","listed","login_time","last_login_time","error_log_update","language","ext_editor","wysiwyg_editor","visible_ids","home_page","location"]
+        exclude_memberIds = [
+            "portal_skin",
+            "listed",
+            "login_time",
+            "last_login_time",
+            "error_log_update",
+            "language",
+            "ext_editor",
+            "wysiwyg_editor",
+            "visible_ids",
+            "home_page",
+            "location",
+        ]
         memberIds = []
 
         request = self.context.REQUEST
@@ -210,13 +241,21 @@ class MemberFormView(BrowserView):
 
         for member in members:
             for id in memberIds:
-                input_name = str(member) + '_' + str(id)
+                input_name = str(member) + "_" + str(id)
 
-                if type(member.getProperty(id)) is bool and member.getProperty(id)==False and input_name in form_data.keys():
-                    member.setMemberProperties(mapping={id:True})
+                if (
+                    type(member.getProperty(id)) is bool
+                    and member.getProperty(id) == False
+                    and input_name in form_data.keys()
+                ):
+                    member.setMemberProperties(mapping={id: True})
 
-                elif type(member.getProperty(id)) is bool and member.getProperty(id)==True and input_name not in form_data.keys():
-                    member.setMemberProperties(mapping={id:False})
+                elif (
+                    type(member.getProperty(id)) is bool
+                    and member.getProperty(id) == True
+                    and input_name not in form_data.keys()
+                ):
+                    member.setMemberProperties(mapping={id: False})
 
         # Redirect back to the listing view
         request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")

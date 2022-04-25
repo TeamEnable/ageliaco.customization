@@ -21,11 +21,12 @@ class AgeliacoCustomizationLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         import plone.restapi
+
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=ageliaco.customization)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'ageliaco.customization:default')
+        applyProfile(portal, "ageliaco.customization:default")
 
 
 # SESAMATH_CUSTOMIZATION_FIXTURE = SesamathCustomizationLayer()

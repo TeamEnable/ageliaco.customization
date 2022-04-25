@@ -3,4 +3,4 @@
 from zope.i18nmessageid import MessageFactory
 
 
-_ = MessageFactory('sesamath.customization')
+_ = MessageFactory("sesamath.customization")
