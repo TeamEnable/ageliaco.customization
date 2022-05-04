@@ -6,8 +6,10 @@ from zope.interface import alsoProvides
 from Products.PlonePAS.permissions import ManageGroups
 from plone import api
 
-import csv
+from plone.namedfile.file import NamedBlobFile
 
+import csv
+import transaction
 # from io import StringIO
 import logging
 import random
@@ -67,7 +69,7 @@ class MemberExportView(BrowserView):
     def __call__(self):
         request = self.context.REQUEST
 
-        # Cette partie du code génère le fichier MEMBERS.CSV quise trouve dans PLONE/ZINSTANCE
+        # Cette partie du code génère le fichier MEMBERS.CSV sous PLONE/ZINSTANCE
         with open("members.csv", "w", newline="") as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=",")
             spamwriter.writerow(MEMBERFIELDS)
@@ -75,11 +77,29 @@ class MemberExportView(BrowserView):
             members = api.user.get_users()
             for member in members:
                 row = []
-
                 for property in MEMBERFIELDS:
                     row.append(member.getProperty(property))
-
                 spamwriter.writerow(row)
+
+        # => Objet "DX File" à la racine du site Plone
+        with open("members.csv", "rt") as f:
+            data = f.read()
+            file_field = NamedBlobFile(data, filename="members.csv")
+            obj_id = "members-1.csv"
+
+            self.context.invokeFactory(
+                "File",
+                obj_id,
+                title="Members data",
+                description="Members data export",
+            )
+            new = self.context[obj_id]
+            # set the file field on the content object
+            new.file = file_field
+            transaction.savepoint(1)
+
+        # => Remove the members.csv file from the file system
+
 
         # Redirect back to the listing view
         request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
@@ -91,9 +111,7 @@ class MemberImportView(BrowserView):
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
 
-        request = self.context.REQUEST
         regtool = self.context.portal_registration
-
         csvfile_obj = self.context["membres.csv"]
 
         try:
@@ -193,7 +211,6 @@ class MemberDeleteView(BrowserView):
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
 
-        request = self.context.REQUEST
         mtool = self.context.portal_membership
         members = api.user.get_users()
 
