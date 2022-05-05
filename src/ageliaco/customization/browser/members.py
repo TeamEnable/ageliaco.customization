@@ -82,10 +82,10 @@ class MemberExportView(BrowserView):
                 spamwriter.writerow(row)
 
         # => Objet "DX File" à la racine du site Plone
-        with open("members.csv", "rt") as f:
+        with open("members.csv", "r") as f:
             data = f.read()
-            file_field = NamedBlobFile(data, filename="members.csv")
-            obj_id = "members-1.csv"
+            file_field = NamedBlobFile(data, filename="members-exported.csv")
+            obj_id = "members-exported.csv"
 
             self.context.invokeFactory(
                 "File",
@@ -97,6 +97,7 @@ class MemberExportView(BrowserView):
             # set the file field on the content object
             new.file = file_field
             transaction.savepoint(1)
+            print(new.Title().upper())
 
         # => Remove the members.csv file from the file system
 
