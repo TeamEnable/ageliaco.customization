@@ -88,10 +88,9 @@
                 </li>
 
                 <li class="paginate_button">
-                    <button id="btn-import"
-                            tal:attributes="onclick string:window.location.href='$portal_url/@@memberimport'"
-                            class="btn btn-primary" title="Importer des comptes de membres" aria-label="Importer"
-                            data-original-title="Importer des comptes de membres"><span class="glyphicon glyphicon-export"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</button> &nbsp;
+                    <a href=""
+                       tal:attributes="href string:window.location.href='$portal_url/@@memberimport'">
+                       <span class="glyphicon glyphicon-export"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</a> &nbsp;
                 </li>
 
                 <li class="paginate_button">
