@@ -67,7 +67,7 @@ class MemberExportView(BrowserView):
     """Members export"""
 
     def __call__(self):
-        request = self.context.REQUEST
+        alsoProvides(self.request, IDisableCSRFProtection)
 
         # Cette partie du code génère le fichier MEMBERS.CSV sous PLONE/ZINSTANCE
         with open("members.csv", "w", newline="") as csvfile:
@@ -82,7 +82,7 @@ class MemberExportView(BrowserView):
                 spamwriter.writerow(row)
 
         # => Objet "DX File" à la racine du site Plone
-        print("Create the members file within the Plone site")
+        logger.info("Create the members file within the Plone site")
         with open("members.csv", "r") as f:
             data = f.read()
             file_field = NamedBlobFile(data, filename="members-exported.csv")
@@ -98,13 +98,13 @@ class MemberExportView(BrowserView):
             # set the file field on the content object
             new.file = file_field
             transaction.savepoint(1)
-            print(new.Title().upper())
+            logger.info(new.Title().upper())
 
         # => Remove the members.csv file from the file system
 
 
         # Redirect back to the listing view
-        request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
+        self.request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
 
 
 class MemberImportView(BrowserView):
