@@ -69,6 +69,8 @@ class MemberExportView(BrowserView):
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
 
+        logger.info("Start exporting members")
+
         # Cette partie du code génère le fichier MEMBERS.CSV sous PLONE/ZINSTANCE
         with open("members.csv", "w", newline="") as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=",")

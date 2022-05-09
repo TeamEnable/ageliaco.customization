@@ -3,7 +3,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="sesamath.customization">
+      i18n:domain="ageliaco.customization">
 
 <body>
 <metal:head fill-slot="javascript_head_slot">
@@ -84,14 +84,14 @@
                     <button id="btn-export"
                             tal:attributes="onclick string:window.location.href='$portal_url/memberexport'"
                             class="btn btn-primary" title="Exporter les données des membres" aria-label="Exporter"
-                            data-original-title="Exporter les données des membres"><span class="glyphicon glyphicon-export"></span> Exporter les données des membres</button>
+                            data-original-title="Exporter les données des membres"><span class="glyphicon glyphicon-export"></span> Exporter les données des membres</button> &nbsp;
                 </li>
 
                 <li class="paginate_button">
                     <button id="btn-import"
                             tal:attributes="onclick string:window.location.href='$portal_url/memberimport'"
                             class="btn btn-primary" title="Importer des comptes de membres" aria-label="Importer"
-                            data-original-title="Importer des comptes de membres"><span class="glyphicon glyphicon-export"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</button>
+                            data-original-title="Importer des comptes de membres"><span class="glyphicon glyphicon-export"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</button> &nbsp;
                 </li>
 
                 <li class="paginate_button">
