@@ -81,22 +81,21 @@
             <form method="post" tal:attributes="action string:$portal_url/@@memberform">
             <ul class="pagination">
                 <li class="paginate_button">
-                    <button id="btn-export"
-                            tal:attributes="onclick string:window.location.href='$portal_url/@@memberexport'"
-                            class="btn btn-primary" title="Exporter les données des membres" aria-label="Exporter"
-                            data-original-title="Exporter les données des membres"><span class="glyphicon glyphicon-export"></span> Exporter les données des membres</button> &nbsp;
+                    <a href=""
+                       tal:attributes="href string:$portal_url/@@memberexport">
+                       <span class="glyphicon glyphicon-export"></span> Exporter les données des membres </a> &nbsp;
                 </li>
 
                 <li class="paginate_button">
                     <a href=""
-                       tal:attributes="href string:window.location.href='$portal_url/@@memberimport'">
-                       <span class="glyphicon glyphicon-export"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</a> &nbsp;
+                       tal:attributes="href string:$portal_url/@@memberimport">
+                       <span class="glyphicon glyphicon-import"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</a> &nbsp;
                 </li>
 
                 <li class="paginate_button">
                     <button id="btn-submit" type="submit"
                             class="btn btn-primary" title="Sauvegarder les changements" aria-label="Enregistrer"
-                            data-original-title="Sauvegarder les changements"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
+                            data-original-title="Sauvegarder les changements"><span class="glyphicon glyphicon-save"></span> Enregistrer les changements</button>
                 </li>
             </ul>
 
