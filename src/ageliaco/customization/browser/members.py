@@ -82,6 +82,7 @@ class MemberExportView(BrowserView):
                 spamwriter.writerow(row)
 
         # => Objet "DX File" à la racine du site Plone
+        print("Create the members file within the Plone site")
         with open("members.csv", "r") as f:
             data = f.read()
             file_field = NamedBlobFile(data, filename="members-exported.csv")
