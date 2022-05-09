@@ -116,7 +116,10 @@ class MemberImportView(BrowserView):
         alsoProvides(self.request, IDisableCSRFProtection)
 
         regtool = self.context.portal_registration
-        csvfile_obj = self.context["membres.csv"]
+        try:
+            csvfile_obj = self.context["membres.csv"]
+        except Exception:
+            csvfile_obj = self.context["members.csv"]
 
         try:
             # Case of a Plone / DX File
