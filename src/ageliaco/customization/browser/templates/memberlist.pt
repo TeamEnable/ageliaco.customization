@@ -78,18 +78,18 @@
                 Liste des utilisateurs du site avec les détails associés.
             </p>
 
-            <form method="post" tal:attributes="action string:$portal_url/memberform">
+            <form method="post" tal:attributes="action string:$portal_url/@@memberform">
             <ul class="pagination">
                 <li class="paginate_button">
                     <button id="btn-export"
-                            tal:attributes="onclick string:window.location.href='$portal_url/memberexport'"
+                            tal:attributes="onclick string:window.location.href='$portal_url/@@memberexport'"
                             class="btn btn-primary" title="Exporter les données des membres" aria-label="Exporter"
                             data-original-title="Exporter les données des membres"><span class="glyphicon glyphicon-export"></span> Exporter les données des membres</button> &nbsp;
                 </li>
 
                 <li class="paginate_button">
                     <button id="btn-import"
-                            tal:attributes="onclick string:window.location.href='$portal_url/memberimport'"
+                            tal:attributes="onclick string:window.location.href='$portal_url/@@memberimport'"
                             class="btn btn-primary" title="Importer des comptes de membres" aria-label="Importer"
                             data-original-title="Importer des comptes de membres"><span class="glyphicon glyphicon-export"></span> Importer des comptes de membres (à partir du fichier CSV membres.csv)</button> &nbsp;
                 </li>
