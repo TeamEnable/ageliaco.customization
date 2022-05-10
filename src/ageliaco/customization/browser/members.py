@@ -90,14 +90,15 @@ class MemberExportView(BrowserView):
             data = f.read()
             file_field = NamedBlobFile(data, filename="members-exported.csv")
 
-            now = datetime.now().strftime("%Y%m%d-%H%M")
-            obj_id = f"members-export-{now}.csv"
+            now = datetime.now()
+            obj_id = f"members-export-{now.strftime('%Y%m%d-%H%M')}.csv"
+            obj_title = f"Members export - {now.strftime('%Y%m%d %H:%M')}"
 
             try:
                 self.context.invokeFactory(
                     "File",
                     obj_id,
-                    title="Members data",
+                    title=obj_title,
                     description="Members data export",
                 )
                 new = self.context[obj_id]
