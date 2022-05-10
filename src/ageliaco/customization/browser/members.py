@@ -9,6 +9,7 @@ from plone import api
 from plone.namedfile.file import NamedBlobFile
 
 import csv
+from datetime import datetime
 import transaction
 # from io import StringIO
 import logging
@@ -88,7 +89,9 @@ class MemberExportView(BrowserView):
         with open("members.csv", "r") as f:
             data = f.read()
             file_field = NamedBlobFile(data, filename="members-exported.csv")
-            obj_id = "members-exported.csv"
+
+            now = datetime.now().strftime("%Y%m%d-%H%M")
+            obj_id = f"members-export-{now}.csv"
 
             try:
                 self.context.invokeFactory(
