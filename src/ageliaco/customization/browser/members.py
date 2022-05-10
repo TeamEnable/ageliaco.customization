@@ -90,20 +90,23 @@ class MemberExportView(BrowserView):
             file_field = NamedBlobFile(data, filename="members-exported.csv")
             obj_id = "members-exported.csv"
 
-            self.context.invokeFactory(
-                "File",
-                obj_id,
-                title="Members data",
-                description="Members data export",
-            )
-            new = self.context[obj_id]
-            # set the file field on the content object
-            new.file = file_field
-            transaction.savepoint(1)
-            logger.info(new.Title().upper())
+            try:
+                self.context.invokeFactory(
+                    "File",
+                    obj_id,
+                    title="Members data",
+                    description="Members data export",
+                )
+                new = self.context[obj_id]
+                # set the file field on the content object
+                new.file = file_field
+                transaction.savepoint(1)
+                logger.info(new.Title().upper())
 
-        # => Remove the members.csv file from the file system
+                # => Remove the members.csv file from the file system
 
+            except Exception as e:
+                logger.info(f"Error: {e}")
 
         # Redirect back to the listing view
         self.request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
