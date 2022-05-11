@@ -228,14 +228,20 @@ class MemberDeleteView(BrowserView):
         mtool = self.context.portal_membership
         members = api.user.get_users()
 
-        DO_NOT_DELETE = ("kamona",)
+        DO_NOT_DELETE = ["kamona",]
+        try:
+            members_not_delete = self.context.members_not_delete
+        except Exception:
+            members_not_delete = []
+        members_not_delete = list(set(members_not_delete + DO_NOT_DELETE))
+        logger.info(members_not_delete)
 
         for m in members:
             m_id = m.member_id
-            if m_id not in DO_NOT_DELETE:
-                print(f"Preparing to delete {m_id}")
-                mtool.deleteMembers((m_id,))
-                print(f"Deleted {m_id}")
+            if m_id not in members_not_delete:
+                logger.info(f"Preparing to delete {m_id}")
+                # mtool.deleteMembers((m_id,))
+                logger.info(f"Deleted {m_id}")
 
         # Redirect back to the listing view
         self.request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
