@@ -150,7 +150,7 @@ class MemberImportView(BrowserView):
         logger.info(rows)
 
         for row in rows[1:]:
-            logger.info(row)
+            # logger.info(row)
 
             rowdata = {}
 
