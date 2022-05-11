@@ -147,7 +147,7 @@ class MemberImportView(BrowserView):
 
         fieldnames = rows[0].split(sep)
 
-        logger.info(rows)
+        # logger.info(rows)
 
         for row in rows[1:]:
             # logger.info(row)
@@ -155,6 +155,8 @@ class MemberImportView(BrowserView):
             rowdata = {}
 
             values = row.split(sep)
+            logger.info(values)
+
             for idx, name in enumerate(fieldnames):
                 # try:
                 rowdata[name] = values[idx].strip()
