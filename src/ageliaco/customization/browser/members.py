@@ -156,7 +156,7 @@ class MemberImportView(BrowserView):
 
             if sep in row:
                 values = row.split(sep)
-                logger.info(values)
+                # logger.info(values)
 
                 for idx, name in enumerate(fieldnames):
                     # try:
@@ -175,7 +175,7 @@ class MemberImportView(BrowserView):
                 username = userdata["username"]
                 password = self._generateRandomPassword(8)
 
-                logger.info(userdata)
+                # logger.info(userdata)
 
                 # Now the core of the process
                 try:
