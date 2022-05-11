@@ -135,7 +135,10 @@ class MemberImportView(BrowserView):
         data = csvcontent.data.decode("utf-8")
         # logger.info(data)
 
-        rows = data.split("\r\n")
+        if "\r\n" in data:
+            rows = data.split("\r\n")
+        elif "\n" in data:
+            rows = data.split("\n")
 
         # which separator?
         sep = ","
