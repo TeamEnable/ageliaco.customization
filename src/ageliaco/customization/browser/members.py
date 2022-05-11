@@ -230,7 +230,7 @@ class MemberDeleteView(BrowserView):
 
         DO_NOT_DELETE = ["kamona",]
         try:
-            members_not_delete = self.context.members_not_delete
+            members_not_delete = list(self.context.members_not_delete)
         except Exception:
             members_not_delete = []
         members_not_delete = list(set(members_not_delete + DO_NOT_DELETE))
@@ -242,7 +242,7 @@ class MemberDeleteView(BrowserView):
             m_id = m.getProperty("id")
             if m_id not in members_not_delete:
                 logger.info(f"Preparing to delete {m_id}")
-                # mtool.deleteMembers((m_id,))
+                mtool.deleteMembers((m_id,))
                 logger.info(f"Deleted {m_id}")
 
         # Redirect back to the listing view
