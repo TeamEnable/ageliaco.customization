@@ -175,32 +175,32 @@ class MemberImportView(BrowserView):
             logger.info(userdata)
 
             # Now the core of the process
-            # try:
-            regtool.addMember(username, password, properties=userdata)
+            try:
+                regtool.addMember(username, password, properties=userdata)
 
-            # PAS D'AJOUT DE GROUP pour l'instant
-            # if userdata.get('group') and self.can_manage_groups:
-            #     group=userdata.get('group')
-            #     api.group.add_user(groupname=group, username=username)
+                # PAS D'AJOUT DE GROUP pour l'instant
+                # if userdata.get('group') and self.can_manage_groups:
+                #     group=userdata.get('group')
+                #     api.group.add_user(groupname=group, username=username)
 
-            # # Send confirmation with details to the user
-            # if userdata.get("email", ""):
-            #     mailhost = self.context.MailHost
-            #     dest_email = userdata["email"]
-            #     send_email = self.context.getProperty("email_from_address")
-            #     msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
-            #     subject = "Votre compte a été créé"
-            #
-            #     try:
-            #         mailhost.send(msg, dest_email, send_email, subject)
-            #         logger.info("Message emailed.")
-            #     except Exception:
-            #         logger.error(
-            #             f"SMTP exception while trying to send an email to {dest_email}"
-            #         )
+                # # Send confirmation with details to the user
+                # if userdata.get("email", ""):
+                #     mailhost = self.context.MailHost
+                #     dest_email = userdata["email"]
+                #     send_email = self.context.getProperty("email_from_address")
+                #     msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
+                #     subject = "Votre compte a été créé"
+                #
+                #     try:
+                #         mailhost.send(msg, dest_email, send_email, subject)
+                #         logger.info("Message emailed.")
+                #     except Exception:
+                #         logger.error(
+                #             f"SMTP exception while trying to send an email to {dest_email}"
+                #         )
 
-            # except Exception as e:
-            #     logger.error(str(e))
+            except Exception as e:
+                logger.error(str(e))
         # except Exception as e:
         #     print(str(e))
 
