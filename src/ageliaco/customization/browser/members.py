@@ -133,7 +133,7 @@ class MemberImportView(BrowserView):
         csvcontent = csvfile_obj.file
 
         data = csvcontent.data.decode("utf-8")
-        logger.info(data)
+        # logger.info(data)
 
         rows = data.split("\r\n")
 
@@ -147,7 +147,6 @@ class MemberImportView(BrowserView):
         for row in rows[1:]:
             rowdata = {}
 
-            # print(row)
             values = row.split(sep)
             for idx, name in enumerate(fieldnames):
                 # try:
@@ -165,6 +164,8 @@ class MemberImportView(BrowserView):
             # prepare username / password
             username = userdata["username"]
             password = self._generateRandomPassword(8)
+
+            logger.info(userdata)
 
             # Now the core of the process
             # try:
