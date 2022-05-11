@@ -237,7 +237,9 @@ class MemberDeleteView(BrowserView):
         logger.info(members_not_delete)
 
         for m in members:
-            m_id = m.member_id
+            logger.info(m)
+            logger.info(str(m))
+            m_id = m.getProperty("id")
             if m_id not in members_not_delete:
                 logger.info(f"Preparing to delete {m_id}")
                 # mtool.deleteMembers((m_id,))
