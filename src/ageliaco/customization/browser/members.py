@@ -128,68 +128,67 @@ class MemberImportView(BrowserView):
         except Exception:
             csvfile_obj = self.context["members.csv"]
 
-        try:
-            # Case of a Plone / DX File
-            # print(dir(csvfile_obj.file))
-            csvcontent = csvfile_obj.file
-            # print(csvcontent.data)
+        # try:
+        # Case of a Plone / DX File
+        csvcontent = csvfile_obj.file
+        # print(csvcontent.data)
 
-            data = csvcontent.data.decode("utf-8")
+        data = csvcontent.data.decode("utf-8")
 
-            rows = data.split("\r\n")
-            fieldnames = rows[0].split(";")  # beware!
+        rows = data.split("\r\n")
+        fieldnames = rows[0].split(";")  # beware!
 
-            for row in rows[1:]:
-                rowdata = {}
+        for row in rows[1:]:
+            rowdata = {}
 
-                # print(row)
-                values = row.split(";")
-                for idx, name in enumerate(fieldnames):
-                    try:
-                        rowdata[name] = values[idx].strip()
-                    except Exception:
-                        pass
-
-                # Transform rowdata into userdata
-                userdata = {}
-                for name in MEMBERFIELDS:
-                    userdata[name] = rowdata[name]
-                # also add the 'username' key to the data dict
-                userdata["username"] = rowdata["email"]
-
-                # prepare username / password
-                username = userdata["username"]
-                password = self._generateRandomPassword(8)
-
-                # Now the core of the process
+            # print(row)
+            values = row.split(";")
+            for idx, name in enumerate(fieldnames):
                 try:
-                    regtool.addMember(username, password, properties=userdata)
+                    rowdata[name] = values[idx].strip()
+                except Exception:
+                    pass
 
-                    # PAS D'AJOUT DE GROUP pour l'instant
-                    # if userdata.get('group') and self.can_manage_groups:
-                    #     group=userdata.get('group')
-                    #     api.group.add_user(groupname=group, username=username)
+            # Transform rowdata into userdata
+            userdata = {}
+            for name in MEMBERFIELDS:
+                userdata[name] = rowdata[name]
+            # also add the 'username' key to the data dict
+            userdata["username"] = rowdata["email"]
 
-                    # Send confirmation with details to the user
-                    if userdata.get("email", ""):
-                        mailhost = self.context.MailHost
-                        dest_email = userdata["email"]
-                        send_email = self.context.getProperty("email_from_address")
-                        msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
-                        subject = "Votre compte a été créé"
+            # prepare username / password
+            username = userdata["username"]
+            password = self._generateRandomPassword(8)
 
-                        try:
-                            mailhost.send(msg, dest_email, send_email, subject)
-                            logger.info("Message emailed.")
-                        except Exception:
-                            logger.error(
-                                f"SMTP exception while trying to send an email to {dest_email}"
-                            )
+            # Now the core of the process
+            try:
+                regtool.addMember(username, password, properties=userdata)
 
-                except Exception as e:
-                    logger.error(str(e))
-        except Exception as e:
-            print(str(e))
+                # PAS D'AJOUT DE GROUP pour l'instant
+                # if userdata.get('group') and self.can_manage_groups:
+                #     group=userdata.get('group')
+                #     api.group.add_user(groupname=group, username=username)
+
+                # Send confirmation with details to the user
+                if userdata.get("email", ""):
+                    mailhost = self.context.MailHost
+                    dest_email = userdata["email"]
+                    send_email = self.context.getProperty("email_from_address")
+                    msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
+                    subject = "Votre compte a été créé"
+
+                    try:
+                        mailhost.send(msg, dest_email, send_email, subject)
+                        logger.info("Message emailed.")
+                    except Exception:
+                        logger.error(
+                            f"SMTP exception while trying to send an email to {dest_email}"
+                        )
+
+            except Exception as e:
+                logger.error(str(e))
+        # except Exception as e:
+        #     print(str(e))
 
         # import pdb; pdb.set_trace()
 
