@@ -144,7 +144,11 @@ class MemberImportView(BrowserView):
 
         fieldnames = rows[0].split(sep)
 
+        logger.info(rows)
+
         for row in rows[1:]:
+            logger.info(row)
+
             rowdata = {}
 
             values = row.split(sep)
