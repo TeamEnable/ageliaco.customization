@@ -81,7 +81,11 @@ class MemberExportView(BrowserView):
             for member in members:
                 row = []
                 for property in MEMBERFIELDS:
-                    row.append(member.getProperty(property))
+                    try:
+                        val = member.getProperty(property)
+                    except Exception:
+                        val = ""
+                    row.append(val)
                 spamwriter.writerow(row)
 
         # => Objet "DX File" à la racine du site Plone
@@ -167,7 +171,10 @@ class MemberImportView(BrowserView):
                 # Transform rowdata into userdata
                 userdata = {}
                 for name in MEMBERFIELDS:
-                    userdata[name] = rowdata[name]
+                    try:
+                        userdata[name] = rowdata[name]
+                    except Exception:
+                        userdata[name] = ""
                 # also add the 'username' key to the data dict
                 userdata["username"] = rowdata["email"]
 
@@ -206,8 +213,6 @@ class MemberImportView(BrowserView):
                     logger.error(str(e))
         # except Exception as e:
         #     print(str(e))
-
-        # import pdb; pdb.set_trace()
 
         # Redirect back to the listing view
         self.request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
