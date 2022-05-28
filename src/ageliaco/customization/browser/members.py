@@ -149,6 +149,7 @@ class MemberImportView(BrowserView):
         if ";" in rows[0]:
             sep = ";"
 
+        # Get the fieldnames from the members file
         fieldnames = rows[0].split(sep)
 
         # logger.info(rows)
@@ -158,59 +159,64 @@ class MemberImportView(BrowserView):
 
             rowdata = {}
 
-            if sep in row:
-                values = row.split(sep)
-                # logger.info(values)
+            # if sep in row:
+            values = row.split(sep)
+            # logger.info(values)
 
-                for idx, name in enumerate(fieldnames):
-                    # try:
-                    rowdata[name] = values[idx].strip()
-                    # except Exception:
-                    #     pass
+            for idx, name in enumerate(fieldnames):
+                # try:
+                rowdata[name] = values[idx].strip()
+                # except Exception:
+                #     pass
 
-                # Transform rowdata into userdata
-                userdata = {}
-                for name in MEMBERFIELDS:
-                    try:
-                        userdata[name] = rowdata[name]
-                    except Exception:
-                        userdata[name] = ""
-                # also add the 'username' key to the data dict
-                userdata["username"] = rowdata["email"]
+            # also add the 'username' key to the data dict
+            rowdata["username"] = rowdata["email"]
 
-                # prepare username / password
-                username = userdata["username"]
-                password = self._generateRandomPassword(8)
+            # prepare username / password
+            username = rowdata["username"]
+            password = self._generateRandomPassword(8)
 
-                # logger.info(userdata)
+            # prepare groups
+            groups_info = rowdata.get("groups", "")
+            if groups_info:
+                groups = groups_info.split(",")
+            else:
+                groups = []
 
-                # Now the core of the process
-                try:
-                    regtool.addMember(username, password, properties=userdata)
+            # Remove the 'groups' key from the row dict now, before next part
+            try:
+                del rowdata["groups"]
+            except Exception:
+                pass
 
-                    # PAS D'AJOUT DE GROUP pour l'instant
-                    # if userdata.get('group') and self.can_manage_groups:
-                    #     group=userdata.get('group')
-                    #     api.group.add_user(groupname=group, username=username)
+            # Now the core of the process
+            try:
+                # Add member
+                regtool.addMember(username, password, properties=rowdata)
 
-                    # # Send confirmation with details to the user
-                    # if userdata.get("email", ""):
-                    #     mailhost = self.context.MailHost
-                    #     dest_email = userdata["email"]
-                    #     send_email = self.context.getProperty("email_from_address")
-                    #     msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
-                    #     subject = "Votre compte a été créé"
-                    #
-                    #     try:
-                    #         mailhost.send(msg, dest_email, send_email, subject)
-                    #         logger.info("Message emailed.")
-                    #     except Exception:
-                    #         logger.error(
-                    #             f"SMTP exception while trying to send an email to {dest_email}"
-                    #         )
+                # Add the member to groups
+                if groups and self.can_manage_groups:
+                    for groupname in groups:
+                        api.group.add_user(groupname=groupname, username=username)
 
-                except Exception as e:
-                    logger.error(str(e))
+                # # Send confirmation with details to the user
+                # if userdata.get("email", ""):
+                #     mailhost = self.context.MailHost
+                #     dest_email = userdata["email"]
+                #     send_email = self.context.getProperty("email_from_address")
+                #     msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
+                #     subject = "Votre compte a été créé"
+                #
+                #     try:
+                #         mailhost.send(msg, dest_email, send_email, subject)
+                #         logger.info("Message emailed.")
+                #     except Exception:
+                #         logger.error(
+                #             f"SMTP exception while trying to send an email to {dest_email}"
+                #         )
+
+            except Exception as e:
+                logger.error(str(e))
         # except Exception as e:
         #     print(str(e))
 
