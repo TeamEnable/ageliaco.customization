@@ -164,10 +164,10 @@ class MemberImportView(BrowserView):
             logger.info(values)
 
             for idx, name in enumerate(fieldnames):
-                # try:
-                rowdata[name] = values[idx].strip()
-                # except Exception:
-                #     pass
+                try:
+                    rowdata[name] = values[idx].strip()
+                except Exception as e:
+                    logger.info(str(e))
 
             # also add the 'username' key to the data dict
             rowdata["username"] = rowdata["email"]
