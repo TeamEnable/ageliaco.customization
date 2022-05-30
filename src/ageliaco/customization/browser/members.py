@@ -155,13 +155,13 @@ class MemberImportView(BrowserView):
         # logger.info(rows)
 
         for row in rows[1:]:
-            # logger.info(row)
+            logger.info(row)
 
             rowdata = {}
 
             # if sep in row:
             values = row.split(sep)
-            # logger.info(values)
+            logger.info(values)
 
             for idx, name in enumerate(fieldnames):
                 # try:
