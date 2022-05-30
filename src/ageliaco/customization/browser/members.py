@@ -169,56 +169,58 @@ class MemberImportView(BrowserView):
                 except Exception as e:
                     logger.info(str(e))
 
-            # also add the 'username' key to the data dict
-            rowdata["username"] = rowdata["email"]
+            # 'email' is the key field of the userdata, so we only proceed if it exists
+            if "email" in rowdata:
+                # also add the 'username' key to the data dict
+                rowdata["username"] = rowdata["email"]
 
-            # prepare username / password
-            username = rowdata["username"]
-            password = self._generateRandomPassword(8)
+                # prepare username / password
+                username = rowdata["username"]
+                password = self._generateRandomPassword(8)
 
-            # prepare groups
-            groups_info = rowdata.get("groups", "")
-            if groups_info:
-                groups = groups_info.split(",")
-            else:
-                groups = []
+                # prepare groups
+                groups_info = rowdata.get("groups", "")
+                if groups_info:
+                    groups = groups_info.split(",")
+                else:
+                    groups = []
 
-            # Remove the 'groups' key from the row dict now, before next part
-            try:
-                del rowdata["groups"]
-            except Exception:
-                pass
+                # Remove the 'groups' key from the row dict now, before next part
+                try:
+                    del rowdata["groups"]
+                except Exception:
+                    pass
 
-            # Now the core of the process
-            try:
-                # Add member
-                regtool.addMember(username, password, properties=rowdata)
+                # Now the core of the process
+                try:
+                    # Add member
+                    regtool.addMember(username, password, properties=rowdata)
 
-                # Add the member to groups
-                if groups and self.can_manage_groups:
-                    for groupname in groups:
-                        api.group.add_user(groupname=groupname, username=username)
+                    # Add the member to groups
+                    if groups and self.can_manage_groups:
+                        for groupname in groups:
+                            api.group.add_user(groupname=groupname, username=username)
 
-                # # Send confirmation with details to the user
-                # if userdata.get("email", ""):
-                #     mailhost = self.context.MailHost
-                #     dest_email = userdata["email"]
-                #     send_email = self.context.getProperty("email_from_address")
-                #     msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
-                #     subject = "Votre compte a été créé"
-                #
-                #     try:
-                #         mailhost.send(msg, dest_email, send_email, subject)
-                #         logger.info("Message emailed.")
-                #     except Exception:
-                #         logger.error(
-                #             f"SMTP exception while trying to send an email to {dest_email}"
-                #         )
+                    # # Send confirmation with details to the user
+                    # if userdata.get("email", ""):
+                    #     mailhost = self.context.MailHost
+                    #     dest_email = userdata["email"]
+                    #     send_email = self.context.getProperty("email_from_address")
+                    #     msg = f"Confirmation de compte créé : {userdata}. Mot de passe à changer au plus vite : {password}"
+                    #     subject = "Votre compte a été créé"
+                    #
+                    #     try:
+                    #         mailhost.send(msg, dest_email, send_email, subject)
+                    #         logger.info("Message emailed.")
+                    #     except Exception:
+                    #         logger.error(
+                    #             f"SMTP exception while trying to send an email to {dest_email}"
+                    #         )
 
-            except Exception as e:
-                logger.error(str(e))
-        # except Exception as e:
-        #     print(str(e))
+                except Exception as e:
+                    logger.error(str(e))
+            # except Exception as e:
+            #     print(str(e))
 
         # Redirect back to the listing view
         self.request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
