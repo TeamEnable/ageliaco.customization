@@ -254,9 +254,15 @@ class MemberDeleteView(BrowserView):
         alsoProvides(self.request, IDisableCSRFProtection)
 
         mtool = self.context.portal_membership
-        members = api.user.get_users()
 
-        DO_NOT_DELETE = ["kamona",]
+        try:
+            groups_for_members_todelete = list(self.context.groups_for_members_todelete)
+        except Exception:
+            groups_for_members_todelete = []
+
+        # exclusion from code
+        DO_NOT_DELETE = ["kamona", "siteadmin",]
+        # exclusion from a property 'members_not_delete' set on the Plone site
         try:
             members_not_delete = list(self.context.members_not_delete)
         except Exception:
@@ -264,14 +270,21 @@ class MemberDeleteView(BrowserView):
         members_not_delete = list(set(members_not_delete + DO_NOT_DELETE))
         logger.info(members_not_delete)
 
-        for m in members:
-            # logger.info(m)
-            # logger.info(str(m))
-            m_id = m.getProperty("id")
-            if m_id not in members_not_delete:
-                logger.info(f"Preparing to delete {m_id}")
-                mtool.deleteMembers((m_id,))
-                logger.info(f"Deleted {m_id}")
+        if groups_for_members_todelete:
+            # lookup the groups and delete the included members
+            pass
+        else:
+            # target all members except those that are excluded
+            members = api.user.get_users()
+
+            for m in members:
+                # logger.info(m)
+                # logger.info(str(m))
+                m_id = m.getProperty("id")
+                if m_id not in members_not_delete:
+                    logger.info(f"Preparing to delete {m_id}")
+                    mtool.deleteMembers((m_id,))
+                    logger.info(f"Deleted {m_id}")
 
         # Redirect back to the listing view
         self.request.RESPONSE.redirect(self.context.absolute_url() + "/memberlist")
