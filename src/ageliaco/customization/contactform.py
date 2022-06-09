@@ -58,7 +58,9 @@ class BaseForm(form.Form):
         captcha = getMultiAdapter(
             (aq_inner(self.context), self.request), name="recaptcha"
         )
-        print(data)
+        logger.info(data)
+
+        logger.info(str(captcha.verify()))
 
         if captcha.verify():
             logger.info("ReCaptcha validation passed.")
