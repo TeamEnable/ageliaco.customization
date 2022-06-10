@@ -12,6 +12,8 @@ from zope import interface
 from zope import schema
 from zope.component import getMultiAdapter
 
+from plone.api.portal import get_registry_record
+
 import logging
 
 
@@ -66,12 +68,13 @@ class BaseForm(form.Form):
             logger.info("ReCaptcha validation passed.")
 
             mailhost = self.context.MailHost
-            dest_email = self.context.getProperty(
-                "email_from_address"
-            )  # "kamon.ayeva@gmail.com"
-            send_email = self.context.getProperty(
-                "email_from_address"
-            )  # "support@ageliaco.org"
+            # dest_email = self.context.getProperty(
+            #     "email_from_address"
+            # )
+            dest_email = get_registry_record('plone.email_from_address')
+            send_email = get_registry_record('plone.email_from_address')
+
+            # from_name = get_registry_record('plone.email_from_name')
 
             try:
                 mailhost.send(
