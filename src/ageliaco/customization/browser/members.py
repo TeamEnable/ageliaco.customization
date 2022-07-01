@@ -169,10 +169,11 @@ class MemberImportView(BrowserView):
                 except Exception as e:
                     logger.info(str(e))
 
-            # 'email' is the key field of the userdata, so we only proceed if it exists
-            if "email" in rowdata:
-                # also add the 'username' key to the data dict
-                rowdata["username"] = rowdata["email"]
+            # # 'email' is the key field of the userdata, so we only proceed if it exists
+            # if "email" in rowdata:
+            if "username" in rowdata:
+                # # also add the 'username' key to the data dict
+                # rowdata["username"] = rowdata["email"]
 
                 # prepare username / password
                 username = rowdata["username"]
