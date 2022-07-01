@@ -41,13 +41,6 @@
         />
 
     <browser:page
-        name="memberdelete"
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-        class=".members.MemberDeleteView"
-        permission="cmf.ManagePortal"
-        />
-
-    <browser:page
         name="memberform"
         for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
         class=".members.MemberFormView"
