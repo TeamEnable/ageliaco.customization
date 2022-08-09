@@ -202,20 +202,20 @@ class MemberImportView(BrowserView):
                         for groupname in groups:
                             api.group.add_user(groupname=groupname, username=username)
 
-                    # Send confirmation with details to the user
-                    mailhost = self.context.MailHost
-                    dest_email = rowdata["email"]
-                    send_email = self.context.getProperty("email_from_address")
-                    msg = f"Votre compte a été créé : {username}. Mot de passe par défaut : {password}. Veuiller le changer au plus vite."
-                    subject = "Votre compte a été créé"
-
-                    try:
-                        mailhost.send(msg, dest_email, send_email, subject)
-                        logger.info("Message emailed.")
-                    except Exception:
-                        logger.error(
-                            f"SMTP exception while trying to send an email to {dest_email}"
-                        )
+                    # # Send confirmation with details to the user
+                    # mailhost = self.context.MailHost
+                    # dest_email = rowdata["email"]
+                    # send_email = self.context.getProperty("email_from_address")
+                    # msg = f"Votre compte a été créé : {username}. Mot de passe par défaut : {password}. Veuiller le changer au plus vite."
+                    # subject = "Votre compte a été créé"
+                    #
+                    # try:
+                    #     mailhost.send(msg, dest_email, send_email, subject)
+                    #     logger.info("Message emailed.")
+                    # except Exception:
+                    #     logger.error(
+                    #         f"SMTP exception while trying to send an email to {dest_email}"
+                    #     )
 
                 except Exception as e:
                     logger.error(str(e))
