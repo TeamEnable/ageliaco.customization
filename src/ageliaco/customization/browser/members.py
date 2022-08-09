@@ -144,10 +144,10 @@ class MemberImportView(BrowserView):
         elif "\n" in data:
             rows = data.split("\n")
 
-        # which separator?
-        sep = ","
-        if ";" in rows[0]:
-            sep = ";"
+        # no choice, separator = ';'
+        sep = ";"
+        # if ";" in rows[0]:
+        #     sep = ";"
 
         # Get the fieldnames from the members file
         fieldnames = rows[0].split(sep)
@@ -234,11 +234,11 @@ class MemberImportView(BrowserView):
         mtool = self.context.portal_membership
         return mtool.checkPermission(ManageGroups, self.context)
 
-    def _addUserToGroups(self, username, groups):
-        acl_users = self.context.acl_users
-        for group_id in groups:
-            group = acl_users.getGroup(group_id)
-            group.addMember(username)
+    # def _addUserToGroups(self, username, groups):
+    #     acl_users = self.context.acl_users
+    #     for group_id in groups:
+    #         group = acl_users.getGroup(group_id)
+    #         group.addMember(username)
 
     def _generateRandomPassword(self, chars):
         st = ""
