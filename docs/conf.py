@@ -42,9 +42,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"sesamath.customization"
-copyright = u"Sesamath (kamon)"
-author = u"Sesamath (kamon)"
+project = u"ageliaco.customization"
+copyright = u"Ageliaco (kamon)"
+author = u"Ageliaco (kamon)"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -199,7 +199,7 @@ html_static_path = ["_static"]
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "sesamath.customizationdoc"
+htmlhelp_basename = "ageliaco.customizationdoc"
 
 # -- Options for LaTeX output ---------------------------------------------
 

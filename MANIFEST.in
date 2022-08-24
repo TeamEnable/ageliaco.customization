@@ -1,4 +1,4 @@
-graft src/sesamath
+graft src/ageliaco
 graft docs
 include *.rst
 global-exclude *.pyc

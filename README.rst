@@ -2,30 +2,30 @@
    If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
    This text does not appear on pypi or github. It is a comment.
 
-.. image:: https://travis-ci.org/collective/sesamath.customization.svg?branch=master
-    :target: https://travis-ci.org/collective/sesamath.customization
+.. image:: https://travis-ci.org/collective/ageliaco.customization.svg?branch=master
+    :target: https://travis-ci.org/collective/ageliaco.customization
 
-.. image:: https://coveralls.io/repos/github/collective/sesamath.customization/badge.svg?branch=master
-    :target: https://coveralls.io/github/collective/sesamath.customization?branch=master
+.. image:: https://coveralls.io/repos/github/collective/ageliaco.customization/badge.svg?branch=master
+    :target: https://coveralls.io/github/collective/ageliaco.customization?branch=master
     :alt: Coveralls
 
-.. image:: https://img.shields.io/pypi/v/sesamath.customization.svg
-    :target: https://pypi.python.org/pypi/sesamath.customization/
+.. image:: https://img.shields.io/pypi/v/ageliaco.customization.svg
+    :target: https://pypi.python.org/pypi/ageliaco.customization/
     :alt: Latest Version
 
-.. image:: https://img.shields.io/pypi/status/sesamath.customization.svg
-    :target: https://pypi.python.org/pypi/sesamath.customization
+.. image:: https://img.shields.io/pypi/status/ageliaco.customization.svg
+    :target: https://pypi.python.org/pypi/ageliaco.customization
     :alt: Egg Status
 
-.. image:: https://img.shields.io/pypi/pyversions/sesamath.customization.svg?style=plastic   :alt: Supported - Python Versions
+.. image:: https://img.shields.io/pypi/pyversions/ageliaco.customization.svg?style=plastic   :alt: Supported - Python Versions
 
-.. image:: https://img.shields.io/pypi/l/sesamath.customization.svg
-    :target: https://pypi.python.org/pypi/sesamath.customization/
+.. image:: https://img.shields.io/pypi/l/ageliaco.customization.svg
+    :target: https://pypi.python.org/pypi/ageliaco.customization/
     :alt: License
 
 
 ======================
-sesamath.customization
+ageliaco.customization
 ======================
 
 Tell me what your product does
@@ -60,14 +60,14 @@ This product has been translated into
 Installation
 ------------
 
-Install sesamath.customization by adding it to your buildout::
+Install ageliaco.customization by adding it to your buildout::
 
     [buildout]
 
     ...
 
     eggs =
-        sesamath.customization
+        ageliaco.customization
 
 
 and then running ``bin/buildout``
@@ -76,8 +76,8 @@ and then running ``bin/buildout``
 Contribute
 ----------
 
-- Issue Tracker: https://github.com/collective/sesamath.customization/issues
-- Source Code: https://github.com/collective/sesamath.customization
+- Issue Tracker: https://github.com/collective/ageliaco.customization/issues
+- Source Code: https://github.com/collective/ageliaco.customization
 - Documentation: https://docs.plone.org/foo/bar
 
 

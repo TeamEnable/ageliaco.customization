@@ -167,7 +167,8 @@ class MemberImportView(BrowserView):
                 try:
                     rowdata[name] = values[idx].strip()
                 except Exception as e:
-                    logger.info(str(e))
+                    # logger.info(str(e))
+                    pass
 
             # # 'email' is the key field of the userdata, so we only proceed if it exists
             # if "email" in rowdata:

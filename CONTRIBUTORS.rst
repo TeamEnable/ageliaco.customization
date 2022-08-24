@@ -1,4 +1,4 @@
 Contributors
 ============
 
-- Sesamath, kamon.ayeva@gmail.com
+- Kamon Ayeva, kamon.ayeva@gmail.com

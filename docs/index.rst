@@ -1,5 +1,5 @@
 ======================
-sesamath.customization
+ageliaco.customization
 ======================
 
 User documentation

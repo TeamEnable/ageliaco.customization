@@ -29,26 +29,26 @@ class AgeliacoCustomizationLayer(PloneSandboxLayer):
         applyProfile(portal, "ageliaco.customization:default")
 
 
-# SESAMATH_CUSTOMIZATION_FIXTURE = SesamathCustomizationLayer()
+# AGELIACO_CUSTOMIZATION_FIXTURE = AgeliacoCustomizationLayer()
 #
 #
-# SESAMATH_CUSTOMIZATION_INTEGRATION_TESTING = IntegrationTesting(
-#     bases=(SESAMATH_CUSTOMIZATION_FIXTURE,),
-#     name='SesamathCustomizationLayer:IntegrationTesting',
+# AGELIACO_CUSTOMIZATION_INTEGRATION_TESTING = IntegrationTesting(
+#     bases=(AGELIACO_CUSTOMIZATION_FIXTURE,),
+#     name='AgeliacoCustomizationLayer:IntegrationTesting',
 # )
 #
 #
-# SESAMATH_CUSTOMIZATION_FUNCTIONAL_TESTING = FunctionalTesting(
-#     bases=(SESAMATH_CUSTOMIZATION_FIXTURE,),
-#     name='SesamathCustomizationLayer:FunctionalTesting',
+# AGELIACO_CUSTOMIZATION_FUNCTIONAL_TESTING = FunctionalTesting(
+#     bases=(AGELIACO_CUSTOMIZATION_FIXTURE,),
+#     name='AgeliacoCustomizationLayer:FunctionalTesting',
 # )
 #
 #
-# SESAMATH_CUSTOMIZATION_ACCEPTANCE_TESTING = FunctionalTesting(
+# AGELIACO_CUSTOMIZATION_ACCEPTANCE_TESTING = FunctionalTesting(
 #     bases=(
-#         SESAMATH_CUSTOMIZATION_FIXTURE,
+#         AGELIACO_CUSTOMIZATION_FIXTURE,
 #         REMOTE_LIBRARY_BUNDLE_FIXTURE,
 #         z2.ZSERVER_FIXTURE,
 #     ),
-#     name='SesamathCustomizationLayer:AcceptanceTesting',
+#     name='AgeliacoCustomizationLayer:AcceptanceTesting',
 # )
